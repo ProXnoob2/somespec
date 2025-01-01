@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: rgb(41, 41, 96);
+        overflow: hidden;
+        font-family: "Arial", sans-serif;
+      }
+
+      .container {
+        text-align: center;
+        color: white;
+        animation: fadeIn 3s ease-in-out;
+        cursor: pointer;
+        z-index: 1; /* Make sure it's above other elements */
+      }
+
+      h1 {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+      }
+
+      p {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .balloons {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+      }
+
+      .balloon {
+        width: 80px;
+        height: 100px;
+        background-color: var(--balloon-color, #ff5722);
+        border-radius: 50%;
+        position: relative;
+        animation: floatUp 6s infinite linear;
+      }
+
+      .balloon::after {
+        content: "";
+        width: 2px;
+        height: 50px;
+        background-color: white;
+        position: absolute;
+        bottom: -50px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .balloon:nth-child(odd) {
+        animation-duration: 7s;
+      }
+
+      @keyframes floatUp {
+        0% {
+          transform: translateY(100vh);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-120vh);
+          opacity: 0;
+        }
+      }
+
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      .confetti:nth-child(1),
+      .confetti:nth-child(5) {
+        background-color: #ff5722; /* Red */
+      }
+
+      .confetti:nth-child(2),
+      .confetti:nth-child(6) {
+        background-color: #4caf50; /* Green */
+      }
+
+      .confetti:nth-child(3),
+      .confetti:nth-child(7) {
+        background-color: #ec21f3; /* Blue */
+      }
+
+      .confetti:nth-child(4),
+      .confetti:nth-child(8) {
+        background-color: #ffc107; /* Yellow */
+      }
+
+      .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: #fff; /* Default color */
+        animation: fall 3s linear infinite;
+        top: 0;
+        z-index: 10;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateY(-50px) translateX(0) rotate(0deg);
+          opacity: 1;
+        }
+        50% {
+          transform: translateY(50vh) translateX(50px) rotate(180deg);
+          opacity: 0.8;
+        }
+        100% {
+          transform: translateY(100vh) translateX(100px) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      .top-corners {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+
+      .top-corner {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        background-color: transparent;
+        border: 3px solid white;
+        border-radius: 50%;
+        animation: pop 2s ease-in-out infinite;
+      }
+
+      .top-corner:nth-child(1) {
+        top: 10px;
+        left: 10px;
+      }
+
+      .top-corner:nth-child(2) {
+        top: 10px;
+        right: 10px;
+      }
+
+      @keyframes pop {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(2);
+          opacity: 0.6;
+        }
+      }
+
+      .card {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 300px;
+        padding: 20px;
+        background-color: white;
+        color: black;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        z-index: 10000;
+        opacity: 0; /* Initially hidden */
+        transition: opacity 0.5s ease-in-out; /* Smooth fade-in transition */
+      }
+
+      .card.show {
+        display: block;
+        opacity: 1; /* Make it visible */
+      }
+
+      .card h2 {
+        margin-bottom: 10px;
+      }
+
+      .card p {
+        font-size: 1rem;
+      }
+
+      .close-btn {
+        margin-top: 15px;
+        background-color: #ff5722;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .close-btn:hover {
+        background-color: #e64a19;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" onclick="showCard()">
+      <h1>Happy Birthday Maira!</h1>
+      <h2>Wishing you a fantastic year ahead filled with joy and success!</h2>
+      <p style="opacity: 80%">(Clicky Here)</p>
+    </div>
+    <div class="balloons">
+      <div class="balloon" style="--balloon-color: #ff5722"></div>
+      <div class="balloon" style="--balloon-color: #4caf50"></div>
+      <div class="balloon" style="--balloon-color: #2de4bd"></div>
+      <div class="balloon" style="--balloon-color: #9c27b0"></div>
+      <div class="balloon" style="--balloon-color: #ffeb3b"></div>
+    </div>
+    <div class="top-corners">
+      <div class="top-corner"></div>
+      <div class="top-corner"></div>
+    </div>
+    <div class="confetti" style="left: 20%"></div>
+    <div class="confetti" style="left: 40%"></div>
+    <div class="confetti" style="left: 60%"></div>
+    <div class="confetti" style="left: 80%"></div>
+
+    <div class="card" id="card">
+      <h2>A Message Maybe</h2>
+      <p>
+        Just wanted to say, you’ve somehow managed to be a decent friend (jk,
+        jk). You've been there through thick and thin, mostly thin, but hey,
+        cool's cools. You bring that 'not so much creepy typa' good energy
+        (haha) though I’ll probably complain about it. Anyway, thanks for being
+        the friend I never knew I would have. Here's to more ridiculous moments,
+        bad decisions, and questionable advice from me. You’re awesome... in
+        your own, 'totally unique way'. Cheers to another year!
+        (mujhe kuch samajh nahi aarha tha kya gift du)
+      </p>
+      <p style="text-align: right">From Some 'Adeeb' named guy</p>
+      <button class="close-btn" onclick="hideCard()">Close</button>
+    </div>
+
+    <script>
+      function showCard() {
+        var card = document.getElementById("card");
+        card.style.display = "block"; // Ensure the card is displayed
+        setTimeout(() => {
+          card.classList.add("show"); // Add class to trigger opacity transition
+        }, 10); // Slight delay to ensure the display change takes effect
+      }
+
+      function hideCard() {
+        var card = document.getElementById("card");
+        card.classList.remove("show"); // Remove class to trigger fade-out
+        setTimeout(() => {
+          card.style.display = "none"; // Hide the card after the transition
+        }, 500); // Match this delay with the transition duration
+      }
+    </script>
+  </body>
+</html>
